@@ -126,7 +126,7 @@ impl Writer {
             color_code: self.color_code
         };
         let mut column_position = BUFFER_WIDTH - 1;
-        while column_position >= 0 && self.buffer.chars[BUFFER_HEIGHT - 1][column_position].read() == blank {
+        while self.buffer.chars[BUFFER_HEIGHT - 1][column_position].read() == blank {
             column_position -= 1;
         }
         self.column_position = column_position + 1;
@@ -188,8 +188,6 @@ mod test {
     use super::*;
 
     fn construct_writer() -> Writer {
-        use std::boxed::Box;
-
         let buffer = construct_buffer();
         Writer {
             column_position: 0,
