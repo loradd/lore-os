@@ -123,14 +123,6 @@ impl Writer {
                 self.buffer.chars[row_position + 1][column_position].write(character);
             }
         }
-        let mut row_position = BUFFER_HEIGHT - 2;
-        while row_position >= 0 {
-            for column_position in 0..BUFFER_WIDTH {
-                let character = self.buffer.chars[row_position][column_position].read();
-                self.buffer.chars[row_position + 1][column_position].write(character);
-            }
-            row_position += 1;
-        }
         self.column_position = BUFFER_WIDTH - 1;
     }
 

@@ -39,7 +39,6 @@ extern "x86-interrupt" fn double_fault_handler(stack_frame: &mut InterruptStackF
 }
 
 use crate::print;
-use crate::cursor;
 
 // timer interrupt handler
 extern "x86-interrupt" fn timer_interrupt_handler(_stack_frame: &mut InterruptStackFrame) {
