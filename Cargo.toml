@@ -1,0 +1,27 @@
+[package]
+name = "lore_os"
+version = "0.1.0"
+authors = ["Lorenzo Addazi <lorenzo.addazi@mdh.se>"]
+edition = "2018"
+
+[dependencies]
+bootloader = "0.5.1"
+volatile = "0.2.3"
+spin = "0.4.9"
+uart_16550 = "0.1.0"
+x86_64 = "0.5.2"
+pic8259_simple = "0.1.1"
+pc-keyboard = "0.3.1"
+
+[dependencies.lazy_static]
+version = "1.0"
+features = ["spin_no_std"]
+
+[dev-dependencies]
+array-init = "0.0.3"
+
+[package.metadata.bootimage]
+default-target = "x86_64-lore_os.json"
+
+[features]
+integration-test = []
