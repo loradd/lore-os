@@ -1,2 +1,2 @@
 # LoreOS
-Simple kernel in Rust :heart:
+Simple OS kernel in Rust :heart:
