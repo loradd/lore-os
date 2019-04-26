@@ -1,2 +1,2 @@
 # lore_os
-Simple kernel in Rust &lt;3
+Simple kernel in Rust :heart:
