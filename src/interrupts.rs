@@ -39,10 +39,10 @@ extern "x86-interrupt" fn double_fault_handler(stack_frame: &mut InterruptStackF
 }
 
 use crate::print;
+use crate::cursor;
 
 // timer interrupt handler
 extern "x86-interrupt" fn timer_interrupt_handler(_stack_frame: &mut InterruptStackFrame) {
-    // print!(".");
     unsafe { PICS.lock().notify_end_of_interrupt(InterruptIndex::Timer.as_u8()); }
 }
 
@@ -65,7 +65,6 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: &mut Interrup
         if let Some(key) = keyboard.process_keyevent(key_event) {
             match key {
                 DecodedKey::Unicode(character) => match character {
-                    // '\u{0008}' => print!("BACKSPACE"),
                     _ => print!("{}", character)
                 },
                 DecodedKey::RawKey(key) => print!("{:?}", key),

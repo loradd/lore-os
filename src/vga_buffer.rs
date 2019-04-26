@@ -109,27 +109,29 @@ impl Writer {
             0 => self.remove_line(),
             _ => self.column_position -= 1,
         }
-        self.write_byte(b' ');
-        self.column_position -= 1;
+        let blank = ScreenChar {
+            ascii_character: b' ',
+            color_code: self.color_code
+        };
+        self.buffer.chars[BUFFER_HEIGHT - 1][self.column_position].write(blank);
     }
 
     fn remove_line(&mut self) {
-        self.clear_line(BUFFER_HEIGHT - 1);
         for row_position in (0..BUFFER_HEIGHT - 1).rev() {
             for column_position in 0..BUFFER_WIDTH {
                 let character = self.buffer.chars[row_position][column_position].read();
                 self.buffer.chars[row_position + 1][column_position].write(character);
             }
         }
-        let blank = ScreenChar {
-            ascii_character: b' ',
-            color_code: self.color_code
-        };
-        let mut column_position = BUFFER_WIDTH - 1;
-        while self.buffer.chars[BUFFER_HEIGHT - 1][column_position].read() == blank {
-            column_position -= 1;
+        let mut row_position = BUFFER_HEIGHT - 2;
+        while row_position >= 0 {
+            for column_position in 0..BUFFER_WIDTH {
+                let character = self.buffer.chars[row_position][column_position].read();
+                self.buffer.chars[row_position + 1][column_position].write(character);
+            }
+            row_position += 1;
         }
-        self.column_position = column_position + 1;
+        self.column_position = BUFFER_WIDTH - 1;
     }
 
     fn clear_line(&mut self, row_position: usize) {
